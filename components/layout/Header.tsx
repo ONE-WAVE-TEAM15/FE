@@ -36,7 +36,7 @@ export default function Header() {
           <Link href="/jops" className="hover:text-primary transition-colors">
             채용 공고
           </Link>
-          <Link href="#" className="hover:text-primary transition-colors">
+          <Link href="/spec-suggestion" className="hover:text-primary transition-colors">
             스펙 쌓기
           </Link>
           <Link href="/portfolio" className="hover:text-primary transition-colors">
@@ -74,4 +74,3 @@ export default function Header() {
     </header>
   );
 }
-

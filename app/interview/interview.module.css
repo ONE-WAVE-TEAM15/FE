@@ -1,0 +1,483 @@
+.pageWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cp-gray-100);
+}
+
+.container {
+  max-width: var(--cp-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px;
+  flex: 1;
+  display: flex;
+  gap: 32px;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cp-gray-700);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.liveDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--cp-primary);
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.interviewTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--cp-dark);
+  line-height: 1.4;
+}
+
+.sessionInfo {
+  font-size: 13px;
+  color: var(--cp-gray-500);
+  margin-top: -12px;
+}
+
+/* Timer Card */
+.timerCard {
+  background-color: var(--cp-white);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid var(--cp-border);
+}
+
+.timerLabel {
+  font-size: 13px;
+  color: var(--cp-gray-500);
+  margin-bottom: 8px;
+}
+
+.timerDisplay {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.timerCurrent {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--cp-dark);
+  letter-spacing: -1px;
+}
+
+.timerTotal {
+  font-size: 16px;
+  color: var(--cp-gray-500);
+  font-weight: 400;
+}
+
+/* Evaluation Card */
+.evalCard {
+  background-color: var(--cp-white);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid var(--cp-border);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.evalTitle {
+  font-size: 13px;
+  color: var(--cp-gray-500);
+}
+
+.evalItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.evalItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.evalItemLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cp-dark);
+}
+
+.evalBadgeExcellent {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cp-primary);
+  background-color: var(--cp-primary-light);
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+
+.evalBadgeNormal {
+  font-size: 12px;
+  font-weight: 600;
+  color: #3B82F6;
+  background-color: #EFF6FF;
+  padding: 2px 10px;
+  border-radius: 10px;
+}
+
+.progressBarBg {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background-color: var(--cp-gray-200);
+  overflow: hidden;
+}
+
+.progressFillRed {
+  height: 100%;
+  border-radius: 3px;
+  background-color: var(--cp-primary);
+  transition: width 0.6s ease;
+}
+
+.progressFillBlue {
+  height: 100%;
+  border-radius: 3px;
+  background-color: #3B82F6;
+  transition: width 0.6s ease;
+}
+
+/* AI Tip Card */
+.tipCard {
+  background-color: var(--cp-gray-900);
+  border-radius: 16px;
+  padding: 24px;
+  color: var(--cp-white);
+}
+
+.tipLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cp-primary);
+  margin-bottom: 10px;
+}
+
+.tipText {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #D1D1D1;
+}
+
+.tipBold {
+  font-weight: 700;
+  color: var(--cp-white);
+}
+
+/* Pause Button */
+.pauseBtn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 28px;
+  border: 1px solid var(--cp-border);
+  background-color: var(--cp-white);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cp-dark);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pauseBtn:hover {
+  background-color: var(--cp-gray-100);
+}
+
+/* ===== Chat Area ===== */
+.chatArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.chatMessages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-bottom: 32px;
+  overflow-y: auto;
+}
+
+/* AI Message */
+.aiMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.aiMessageHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aiAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--cp-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.aiAvatarIcon {
+  color: var(--cp-white);
+  font-size: 18px;
+}
+
+.aiName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cp-dark);
+}
+
+.messageTime {
+  font-size: 12px;
+  color: var(--cp-gray-500);
+}
+
+.aiBubble {
+  margin-left: 50px;
+  background-color: var(--cp-white);
+  border-radius: 0 16px 16px 16px;
+  padding: 20px 24px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--cp-dark);
+  border: 1px solid var(--cp-border);
+  max-width: 640px;
+}
+
+.ttsIndicator {
+  margin-left: 50px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  max-width: fit-content;
+}
+
+.ttsWave {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ttsBar {
+  width: 3px;
+  border-radius: 2px;
+  background-color: var(--cp-primary);
+  animation: ttsWaveAnim 0.8s ease-in-out infinite;
+}
+
+.ttsBar:nth-child(1) {
+  height: 8px;
+  animation-delay: 0s;
+}
+
+.ttsBar:nth-child(2) {
+  height: 14px;
+  animation-delay: 0.15s;
+}
+
+.ttsBar:nth-child(3) {
+  height: 10px;
+  animation-delay: 0.3s;
+}
+
+@keyframes ttsWaveAnim {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.5); }
+}
+
+.ttsText {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cp-primary);
+}
+
+/* User Message */
+.userMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.userMessageHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userTime {
+  font-size: 12px;
+  color: var(--cp-gray-500);
+}
+
+.userName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cp-dark);
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--cp-gray-300);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.userAvatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.userBubble {
+  background-color: var(--cp-dark);
+  color: var(--cp-white);
+  border-radius: 16px 0 16px 16px;
+  padding: 20px 24px;
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 640px;
+  margin-right: 50px;
+}
+
+/* ===== Input Area ===== */
+.inputArea {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inputBox {
+  background-color: var(--cp-white);
+  border-radius: 16px;
+  border: 1px solid var(--cp-border);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inputTextarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--cp-dark);
+  font-family: inherit;
+  min-height: 60px;
+  background: transparent;
+}
+
+.inputTextarea::placeholder {
+  color: var(--cp-gray-300);
+}
+
+.inputActions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+.micBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--cp-border);
+  background-color: var(--cp-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: var(--cp-gray-500);
+}
+
+.micBtn:hover {
+  background-color: var(--cp-gray-100);
+}
+
+.sendBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 28px;
+  border: none;
+  background-color: var(--cp-primary);
+  color: var(--cp-white);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sendBtn:hover {
+  background-color: var(--cp-primary-hover);
+}
+
+.inputHints {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 12px;
+  color: var(--cp-gray-500);
+}
+
+.hintItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hintIcon {
+  font-size: 14px;
+  color: var(--cp-gray-500);
+}

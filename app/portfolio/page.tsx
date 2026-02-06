@@ -7,10 +7,9 @@ import s from "./portfolio.module.css";
 import { createPortfolio, PortfolioRequest } from "./portfolioService";
 
 const STEPS = [
-  "기본 정보 & 요약",
-  "핵심 경력 사항",
-  "프로젝트 상세",
-  "보유 기술 & 자격",
+  "기본 정보",
+  "경력 사항",
+  "보유 기술",
 ];
 
 const SUGGESTED_SKILLS = [
@@ -113,6 +112,14 @@ export default function PortfolioPage() {
     }
   };
 
+  const handleStepClick = (index: number) => {
+    setActiveStep(index);
+    const target = document.getElementById(`portfolio-step-${index}`);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div className={s.pageWrapper}>
       <Header />
@@ -127,7 +134,7 @@ export default function PortfolioPage() {
                 <button
                   type="button"
                   className={i === activeStep ? s.stepItemActive : s.stepItem}
-                  onClick={() => setActiveStep(i)}
+                  onClick={() => handleStepClick(i)}
                 >
                   <span
                     className={
@@ -171,7 +178,7 @@ export default function PortfolioPage() {
         {/* ── Main Content ── */}
         <main className={s.mainContent}>
           {/* 기본 정보 */}
-          <section className={s.card}>
+          <section id="portfolio-step-0" className={`${s.card} ${s.scrollAnchor}`}>
             <div className={s.cardHeader}>
               <h3 className={s.cardTitle}>기본 정보</h3>
               <span className={s.required}>* 필수 입력</span>
@@ -261,7 +268,7 @@ export default function PortfolioPage() {
           </section>
 
           {/* 경력 사항 */}
-          <section className={s.card}>
+          <section id="portfolio-step-1" className={`${s.card} ${s.scrollAnchor}`}>
             <div className={s.cardHeader}>
               <h3 className={s.cardTitle}>경력 사항</h3>
               <button type="button" className={s.addBtn} onClick={addCareer}>
@@ -377,7 +384,7 @@ export default function PortfolioPage() {
           </section>
 
           {/* 보유 기술 */}
-          <section className={s.card}>
+          <section id="portfolio-step-2" className={`${s.card} ${s.scrollAnchor}`}>
             <div className={s.cardHeader}>
               <h3 className={s.cardTitle}>보유 기술</h3>
             </div>
