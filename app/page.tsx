@@ -32,12 +32,12 @@ export default function LandingPage() {
                 <div className="inline-block rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-primary tracking-wide">
                   CAREER LIFE CYCLE PARTNER
                 </div>
-                <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl xl:text-6xl leading-[1.2]">
-                  취업의 시작부터
-                  <br />
-                  <span className="text-primary">안착과 성장</span>까지
-                  <br />
-                  함께합니다
+                <h1 className="hero-headline text-4xl font-extrabold tracking-tight lg:text-5xl xl:text-6xl leading-[1.2]">
+                  <span className="hero-line hero-line-1">취업의 시작부터</span>
+                  <span className="hero-line hero-line-2">
+                    <span className="text-primary">안착과 성장</span>까지
+                  </span>
+                  <span className="hero-line hero-line-3">함께합니다</span>
                 </h1>
                 <p className="max-w-[600px] text-slate-500 md:text-lg">
                   컴패스는 단순한 취업 지원을 넘어, 당신의 커리어 여정을 함께하는
