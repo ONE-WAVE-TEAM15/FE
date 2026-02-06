@@ -2,10 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default function Header() {
+  const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -21,6 +23,14 @@ export default function Header() {
     window.location.href = "/"; // 메인으로 리다이렉트 (새로고침 효과)
   };
 
+  const handleProtectedNav =
+    (path: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (isLoggedIn) return;
+      e.preventDefault();
+      alert("로그인이 필요합니다.");
+      router.push("/login");
+    };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -30,24 +40,31 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-          <Link href="/jobs" className="hover:text-primary transition-colors">
+          <Link
+            href="/jobs"
+            className="hover:text-primary transition-colors"
+            onClick={handleProtectedNav("/jobs")}
+          >
             채용 공고
           </Link>
           <Link
             href="/spec-suggestion"
             className="hover:text-primary transition-colors"
+            onClick={handleProtectedNav("/spec-suggestion")}
           >
             스펙 쌓기
           </Link>
           <Link
             href="/portfolio"
             className="hover:text-primary transition-colors"
+            onClick={handleProtectedNav("/portfolio")}
           >
             포트폴리오 분석
           </Link>
           <Link
             href="/interview"
             className="hover:text-primary transition-colors"
+            onClick={handleProtectedNav("/interview")}
           >
             모의면접
           </Link>
