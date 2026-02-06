@@ -33,11 +33,22 @@ export default function LoginForm() {
 
       // 로그인 성공 처리
       // API 응답 구조(accessToken)와 유저의 요청(res.data)을 모두 고려하여 토큰 추출
-      const token = data.access_token || data;
-      console.log(token);
+      const token = data.accessToken || data;
 
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-      localStorage.setItem("accessToken", token);
+      if (typeof token !== "string" && data.accessToken) {
+        // data가 객체고 accessToken이 있는 경우
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + data.accessToken;
+        localStorage.setItem("accessToken", data.accessToken);
+      } else if (typeof token === "string") {
+        // data 자체가 문자열이거나 token이 문자열인 경우
+        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+        localStorage.setItem("accessToken", token);
+      }
+
+      if (data.refreshToken) {
+        localStorage.setItem("refreshToken", data.refreshToken);
+      }
 
       alert("로그인 성공!");
       router.push("/survey");
