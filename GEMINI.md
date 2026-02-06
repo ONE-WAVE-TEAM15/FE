@@ -35,10 +35,5 @@
 
 ### 해야할 일
 
-/login 로그인 페이지를 아래 사진처럼 만들어주고
-
-https://onewave.hsh-server.com/docs#/
-
-백엔드에서 제공한 api를 사용하여 로그인 기능을 구현해줘
-
-![alt text](c:\Users\seoheewon\Downloads\login.png)
+현재 회원가입은 잘 돼.
+회원 가입 이후 로그인 페이지로 이동하게 해줘.

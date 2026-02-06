@@ -4,8 +4,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import styles from "./LoginForm.module.css";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +51,7 @@ export default function LoginForm() {
       }
 
       alert("로그인 성공!");
-      window.location.href = "/"; // 메인 페이지로 이동
+      router.push("/survey");
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
