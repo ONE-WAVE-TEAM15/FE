@@ -104,6 +104,9 @@ export default function SpecSuggestionPage() {
       setIsLoggedIn(true);
     }
   }, [router]);
+
+  if (!isLoggedIn) return null;
+
   return (
     <div className={s.pageWrapper}>
       <Header />

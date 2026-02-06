@@ -1,14 +1,17 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState, type FormEvent, useRef } from "react";
 import { useRouter } from "next/navigation";
-
-import { useState, type FormEvent } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import styles from "./interview.module.css";
 
-/* ─── SVG Icons (inline) ─── */
+// API 함수 임포트
+import { startInterview } from "./interviewStart";
+import { sendChatMessage } from "./interviewIn";
+import { getInterviewResult } from "./interviewMentor";
+
+/* ─── SVG Icons ─── */
 function RobotIcon() {
   return (
     <svg
@@ -29,7 +32,6 @@ function RobotIcon() {
     </svg>
   );
 }
-
 function MicIcon() {
   return (
     <svg
@@ -48,7 +50,6 @@ function MicIcon() {
     </svg>
   );
 }
-
 function SendIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -56,7 +57,6 @@ function SendIcon() {
     </svg>
   );
 }
-
 function KeyboardIcon() {
   return (
     <svg
@@ -82,7 +82,6 @@ function KeyboardIcon() {
     </svg>
   );
 }
-
 function InfoIcon() {
   return (
     <svg
@@ -101,7 +100,6 @@ function InfoIcon() {
     </svg>
   );
 }
-
 function UserIcon() {
   return (
     <svg
@@ -120,83 +118,159 @@ function UserIcon() {
   );
 }
 
-/* ─── Chat Message Types ─── */
+/* ─── Types ─── */
 interface AiMsg {
   type: "ai";
   time: string;
   text: string;
   isSpeaking?: boolean;
 }
-
 interface UserMsg {
   type: "user";
   time: string;
   text: string;
 }
-
-type ChatMessage = AiMsg | UserMsg;
-
-const INITIAL_MESSAGES: ChatMessage[] = [
-  {
-    type: "ai",
-    time: "오전 10:15",
-    text: "안녕하세요 김철수 님, 오늘 핀테크 도메인 면접을 맡게 된 AI 면접관입니다. 먼저 본인이 진행했던 프로젝트 중에서 결제 시스템이나 금융 API를 활용했던 경험에 대해 간략히 소개해 주시겠어요?",
-  },
-  {
-    type: "user",
-    time: "오전 10:17",
-    text: "네, 저는 지난 학기에 오픈뱅킹 API를 연동한 개인 자산 관리 서비스를 개발했습니다. 당시 20여 개의 은행 API를 통합하여 사용자의 잔액을 실시간으로 조회하고, 소비 패턴을 분석하는 기능을 구현했습니다.",
-  },
-  {
-    type: "ai",
-    time: "오전 10:18",
-    text: "흥미롭네요. 그렇다면 다수의 은행 API를 연동하는 과정에서 보안 인증 방식은 어떻게 처리하셨나요? 특히 토큰 관리와 갱신 프로세스에 대해 설명해 주세요.",
-    isSpeaking: true,
-  },
-];
+type ChatMessageUI = AiMsg | UserMsg;
 
 export default function MockInterviewPage() {
   const router = useRouter();
-  const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
+  const [messages, setMessages] = useState<ChatMessageUI[]>([]);
   const [input, setInput] = useState("");
-  const [minutes, setMinutes] = useState(12);
-  const [seconds, setSeconds] = useState(45);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [interviewId, setInterviewId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [isLastQuestion, setIsLastQuestion] = useState(false);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // 자동 스크롤
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  // 로그인 체크 및 1. [API: startInterview] 호출
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
       router.push("/login");
+    } else {
+      setIsLoggedIn(true);
+      const init = async () => {
+        try {
+          setLoading(true);
+          const data = await startInterview();
+          setInterviewId(data.audio);
+          setMessages([
+            {
+              type: "ai",
+              time: formatTime(new Date()),
+              text: data.message,
+              isSpeaking: true,
+            },
+          ]);
+        } catch (error) {
+          alert("면접 세션을 시작할 수 없습니다.");
+        } finally {
+          setLoading(false);
+        }
+      };
+      init();
     }
-  }, []);
+  }, [router]);
 
-  const handleSend = (e?: FormEvent) => {
+  // 타이머 로직
+  useEffect(() => {
+    if (!isLoggedIn || loading) return;
+    const interval = setInterval(() => {
+      setSeconds((prev) => {
+        if (prev === 59) {
+          setMinutes((m) => m + 1);
+          return 0;
+        }
+        return prev + 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isLoggedIn, loading]);
+
+  const formatTime = (date: Date) => {
+    const hours = date.getHours();
+    const period = hours < 12 ? "오전" : "오후";
+    const displayHours = hours % 12 || 12;
+    const mins = String(date.getMinutes()).padStart(2, "0");
+    return `${period} ${displayHours}:${mins}`;
+  };
+
+  const handleSend = async (e?: FormEvent) => {
     e?.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || !interviewId || loading) return;
 
-    const now = new Date();
-    const timeStr = `${now.getHours() < 12 ? "오전" : "오후"} ${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, "0")}`;
+    const userText = input.trim();
+    const currentQuestion =
+      [...messages].reverse().find((m) => m.type === "ai")?.text || "";
+    setInput("");
 
-    const userMsg: UserMsg = {
-      type: "user",
-      time: timeStr,
-      text: input.trim(),
-    };
-
+    // UI에 사용자 답변 추가
     setMessages((prev) =>
       prev
         .map((m) => (m.type === "ai" ? { ...m, isSpeaking: false } : m))
-        .concat(userMsg),
+        .concat({ type: "user", time: formatTime(new Date()), text: userText }),
     );
-    setInput("");
 
-    /* Simulate timer advance */
-    setSeconds((s) => {
-      if (s >= 55) {
-        setMinutes((m) => m + 1);
-        return 0;
+    try {
+      setLoading(true);
+
+      if (isLastQuestion) {
+        // 3. [API: getInterviewResult] 마지막 질문인 경우 결과 요청
+        const result = await getInterviewResult({
+          conversation_hisory: [],
+          interviewer_question: currentQuestion,
+          user_answer: userText,
+        });
+
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "ai",
+            time: formatTime(new Date()),
+            text: "답변 감사합니다. 모든 면접 과정이 종료되었습니다. 분석 결과를 준비 중입니다...",
+            isSpeaking: true,
+          },
+        ]);
+
+        // 결과 페이지로 이동 (결과 데이터를 route state나 로컬스토리지에 저장 가능)
+        setTimeout(() => router.push("/"), 2500);
+      } else {
+        // 2. [API: sendChatMessage] 일반 대화 진행
+        const response = await sendChatMessage({
+          conversation_hisory: [],
+          user_answer: userText,
+        });
+
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "ai",
+            time: formatTime(new Date()),
+            text: response.message,
+            isSpeaking: true,
+          },
+        ]);
+
+        if (response.audio) {
+          setIsLastQuestion(true);
+        }
       }
-      return s + 15;
-    });
+    } catch (error) {
+      console.error(error);
+      alert("통신 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -206,40 +280,39 @@ export default function MockInterviewPage() {
     }
   };
 
-  const timerStr = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  if (!isLoggedIn) return null;
 
   return (
     <div className={styles.pageWrapper}>
       <Header />
-
       <div className={styles.container}>
-        {/* ===== Sidebar ===== */}
+        {/* Sidebar */}
         <aside className={styles.sidebar}>
           <div className={styles.liveIndicator}>
-            <span className={styles.liveDot} />
-            LIVE INTERVIEW
+            <span className={styles.liveDot} /> LIVE INTERVIEW
           </div>
-
           <h1 className={styles.interviewTitle}>
             핀테크 도메인
             <br />
             심층 기술 면접
           </h1>
-          <p className={styles.sessionInfo}>2025.05.22 세션 #12</p>
+          <p className={styles.sessionInfo}>
+            {new Date().toLocaleDateString()} 세션
+          </p>
 
-          {/* Timer */}
           <div className={styles.timerCard}>
             <p className={styles.timerLabel}>진행 시간</p>
             <div className={styles.timerDisplay}>
-              <span className={styles.timerCurrent}>{timerStr}</span>
+              <span className={styles.timerCurrent}>
+                {String(minutes).padStart(2, "0")}:
+                {String(seconds).padStart(2, "0")}
+              </span>
               <span className={styles.timerTotal}>/ 30:00</span>
             </div>
           </div>
 
-          {/* Evaluation */}
           <div className={styles.evalCard}>
             <p className={styles.evalTitle}>현재 평가 항목</p>
-
             <div className={styles.evalItem}>
               <div className={styles.evalItemHeader}>
                 <span className={styles.evalItemLabel}>기술 전문성</span>
@@ -252,7 +325,6 @@ export default function MockInterviewPage() {
                 />
               </div>
             </div>
-
             <div className={styles.evalItem}>
               <div className={styles.evalItemHeader}>
                 <span className={styles.evalItemLabel}>도메인 이해도</span>
@@ -267,83 +339,97 @@ export default function MockInterviewPage() {
             </div>
           </div>
 
-          {/* AI Tip */}
           <div className={styles.tipCard}>
             <p className={styles.tipLabel}>AI 팁</p>
             <p className={styles.tipText}>
-              {'"'}보안 프로토콜{'"'}에 대한 답변 시{" "}
-              <span className={styles.tipBold}>OAuth 2.0</span>과{" "}
-              <span className={styles.tipBold}>PKCE</span>를 언급하면 더 좋은
-              점수를 받을 수 있습니다.
+              상세하고 구체적인 답변을 지향해 보세요. AI가 역량을 더 잘 분석할
+              수 있습니다.
             </p>
           </div>
-
-          {/* Pause */}
-          <button type="button" className={styles.pauseBtn}>
-            면접 일시 중단
+          <button
+            type="button"
+            className={styles.pauseBtn}
+            onClick={() => router.push("/")}
+          >
+            면접 종료
           </button>
         </aside>
 
-        {/* ===== Chat Area ===== */}
+        {/* Chat Area */}
         <section className={styles.chatArea}>
-          <div className={styles.chatMessages}>
-            {messages.map((msg, idx) => {
-              if (msg.type === "ai") {
-                const aiMsg = msg as AiMsg;
-                return (
-                  <div key={idx} className={styles.aiMessage}>
-                    <div className={styles.aiMessageHeader}>
+          <div className={styles.chatMessages} ref={scrollRef}>
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={
+                  msg.type === "ai" ? styles.aiMessage : styles.userMessage
+                }
+              >
+                <div
+                  className={
+                    msg.type === "ai"
+                      ? styles.aiMessageHeader
+                      : styles.userMessageHeader
+                  }
+                >
+                  {msg.type === "ai" ? (
+                    <>
                       <div className={styles.aiAvatar}>
                         <span className={styles.aiAvatarIcon}>
                           <RobotIcon />
                         </span>
                       </div>
                       <span className={styles.aiName}>AI 면접관 Vinsign</span>
-                      <span className={styles.messageTime}>{aiMsg.time}</span>
-                    </div>
-                    <div className={styles.aiBubble}>{aiMsg.text}</div>
-                    {aiMsg.isSpeaking && (
-                      <div className={styles.ttsIndicator}>
-                        <span className={styles.ttsWave}>
-                          <span className={styles.ttsBar} />
-                          <span className={styles.ttsBar} />
-                          <span className={styles.ttsBar} />
-                        </span>
-                        <span className={styles.ttsText}>
-                          AI가 답변을 읽어주는 중입니다...
-                        </span>
+                      <span className={styles.messageTime}>{msg.time}</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className={styles.userTime}>{msg.time}</span>
+                      <span className={styles.userName}>나</span>
+                      <div className={styles.userAvatar}>
+                        <UserIcon />
                       </div>
-                    )}
-                  </div>
-                );
-              }
-
-              const userMsg = msg as UserMsg;
-              return (
-                <div key={idx} className={styles.userMessage}>
-                  <div className={styles.userMessageHeader}>
-                    <span className={styles.userTime}>{userMsg.time}</span>
-                    <span className={styles.userName}>김철수</span>
-                    <div className={styles.userAvatar}>
-                      <UserIcon />
-                    </div>
-                  </div>
-                  <div className={styles.userBubble}>{userMsg.text}</div>
+                    </>
+                  )}
                 </div>
-              );
-            })}
+                <div
+                  className={
+                    msg.type === "ai" ? styles.aiBubble : styles.userBubble
+                  }
+                >
+                  {msg.text}
+                </div>
+                {msg.type === "ai" && (msg as AiMsg).isSpeaking && (
+                  <div className={styles.ttsIndicator}>
+                    <span className={styles.ttsWave}>
+                      <span className={styles.ttsBar} />
+                      <span className={styles.ttsBar} />
+                      <span className={styles.ttsBar} />
+                    </span>
+                    <span className={styles.ttsText}>
+                      AI가 답변을 읽어주는 중입니다...
+                    </span>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
 
-          {/* Input */}
+          {/* Input Area */}
           <form className={styles.inputArea} onSubmit={handleSend}>
             <div className={styles.inputBox}>
               <textarea
                 className={styles.inputTextarea}
-                placeholder="답변을 입력하거나 마이크 버튼을 눌러 음성으로 대답하세요..."
+                placeholder={
+                  loading
+                    ? "처리 중..."
+                    : "답변을 입력하거나 마이크 버튼을 눌러 대답하세요..."
+                }
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 rows={3}
+                disabled={loading}
               />
               <div className={styles.inputActions}>
                 <button
@@ -353,25 +439,26 @@ export default function MockInterviewPage() {
                 >
                   <MicIcon />
                 </button>
-                <button type="submit" className={styles.sendBtn}>
-                  전송 <SendIcon />
+                <button
+                  type="submit"
+                  className={styles.sendBtn}
+                  disabled={loading || !input.trim()}
+                >
+                  {loading ? "전송 중" : "전송"} <SendIcon />
                 </button>
               </div>
             </div>
             <div className={styles.inputHints}>
               <span className={styles.hintItem}>
-                <KeyboardIcon />
-                Enter로 전송
+                <KeyboardIcon /> Enter로 전송
               </span>
               <span className={styles.hintItem}>
-                <InfoIcon />
-                답변이 길어질 경우 AI가 요약하여 분석합니다.
+                <InfoIcon /> AI가 실시간으로 전문성을 분석합니다.
               </span>
             </div>
           </form>
         </section>
       </div>
-
       <Footer />
     </div>
   );
