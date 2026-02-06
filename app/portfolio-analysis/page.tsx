@@ -4,6 +4,7 @@ import React from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import s from "./analysis.module.css";
+import Link from "next/link";
 
 /* ── Data ── */
 const SCORE = 85;
@@ -63,13 +64,34 @@ export default function PortfolioAnalysisPage() {
 
       <div className={s.container}>
         {/* ── Score Card ── */}
-        <div className={s.card} style={{ position: "relative", overflow: "hidden" }}>
+        <div
+          className={s.card}
+          style={{ position: "relative", overflow: "hidden" }}
+        >
           {/* Decoration */}
           <div className={s.scoreDecoIcon}>
             <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
-              <circle cx="60" cy="60" r="55" stroke="var(--cp-primary)" strokeWidth="2" opacity="0.3" />
-              <circle cx="60" cy="60" r="38" stroke="var(--cp-primary)" strokeWidth="2" opacity="0.2" />
-              <path d="M60 20 L66 40 L88 40 L70 52 L76 72 L60 60 L44 72 L50 52 L32 40 L54 40Z" fill="var(--cp-primary)" opacity="0.15" />
+              <circle
+                cx="60"
+                cy="60"
+                r="55"
+                stroke="var(--cp-primary)"
+                strokeWidth="2"
+                opacity="0.3"
+              />
+              <circle
+                cx="60"
+                cy="60"
+                r="38"
+                stroke="var(--cp-primary)"
+                strokeWidth="2"
+                opacity="0.2"
+              />
+              <path
+                d="M60 20 L66 40 L88 40 L70 52 L76 72 L60 60 L44 72 L50 52 L32 40 L54 40Z"
+                fill="var(--cp-primary)"
+                opacity="0.15"
+              />
             </svg>
           </div>
 
@@ -89,7 +111,9 @@ export default function PortfolioAnalysisPage() {
                   cy="70"
                   r="62"
                   strokeDasharray={CIRCUMFERENCE}
-                  strokeDashoffset={CIRCUMFERENCE - (CIRCUMFERENCE * SCORE) / SCORE_MAX}
+                  strokeDashoffset={
+                    CIRCUMFERENCE - (CIRCUMFERENCE * SCORE) / SCORE_MAX
+                  }
                 />
               </svg>
               <div className={s.circleText}>
@@ -130,7 +154,16 @@ export default function PortfolioAnalysisPage() {
           <div className={s.halfCard}>
             <div className={s.halfCardTitle}>
               <span className={`${s.halfCardTitleIcon} ${s.strengthIcon}`}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M20 6L9 17l-5-5" />
                 </svg>
               </span>
@@ -140,7 +173,16 @@ export default function PortfolioAnalysisPage() {
               {strengths.map((item) => (
                 <li key={item.title} className={s.feedbackItem}>
                   <span className={`${s.feedbackDot} ${s.feedbackDotGreen}`}>
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
                       <path d="M20 6L9 17l-5-5" />
                     </svg>
                   </span>
@@ -157,7 +199,16 @@ export default function PortfolioAnalysisPage() {
           <div className={s.halfCard}>
             <div className={s.halfCardTitle}>
               <span className={`${s.halfCardTitleIcon} ${s.improvementIcon}`}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M12 9v4M12 17h.01" />
                   <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
                 </svg>
@@ -168,7 +219,16 @@ export default function PortfolioAnalysisPage() {
               {improvements.map((item) => (
                 <li key={item.title} className={s.feedbackItem}>
                   <span className={`${s.feedbackDot} ${s.feedbackDotRed}`}>
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
                       <circle cx="12" cy="12" r="1" fill="currentColor" />
                     </svg>
                   </span>
@@ -191,12 +251,29 @@ export default function PortfolioAnalysisPage() {
               <div className={s.marketCardValue}>유니콘 스타트업</div>
               <div className={s.marketCardStars}>
                 {[1, 2, 3, 4].map((i) => (
-                  <svg key={i} width="18" height="18" viewBox="0 0 24 24" className={s.starFilled}>
-                    <path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  <svg
+                    key={i}
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    className={s.starFilled}
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                    />
                   </svg>
                 ))}
-                <svg width="18" height="18" viewBox="0 0 24 24" className={s.starEmpty}>
-                  <path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  className={s.starEmpty}
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                  />
                 </svg>
               </div>
             </div>
@@ -238,7 +315,16 @@ export default function PortfolioAnalysisPage() {
       {/* ── Bottom Actions ── */}
       <div className={s.bottomActions}>
         <button type="button" className={s.btnOutline}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
             <polyline points="7 10 12 15 17 10" />
             <line x1="12" y1="15" x2="12" y2="3" />
@@ -248,12 +334,21 @@ export default function PortfolioAnalysisPage() {
         <button type="button" className={s.btnDark}>
           분석 다시하기
         </button>
-        <button type="button" className={s.btnPrimary}>
+        <Link type="button" className={s.btnPrimary} href="/jobs">
           맞춤 공고 확인하기
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
-        </button>
+        </Link>
       </div>
 
       <Footer />

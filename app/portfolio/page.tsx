@@ -1,22 +1,15 @@
 "use client";
 
 import React, { useState, type KeyboardEvent } from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import s from "./portfolio.module.css";
 import { createPortfolio, PortfolioRequest } from "./portfolioService";
 
-const STEPS = [
-  "기본 정보",
-  "경력 사항",
-  "보유 기술",
-];
+const STEPS = ["기본 정보", "경력 사항", "보유 기술"];
 
-const SUGGESTED_SKILLS = [
-  "#Adobe XD",
-  "#TypeScript",
-  "#Git",
-];
+const SUGGESTED_SKILLS = ["#Adobe XD", "#TypeScript", "#Git"];
 
 interface CareerEntry {
   id: number;
@@ -39,6 +32,7 @@ const emptyCareer = (): CareerEntry => ({
 });
 
 export default function PortfolioPage() {
+  const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -53,7 +47,11 @@ export default function PortfolioPage() {
   const [careers, setCareers] = useState<CareerEntry[]>([emptyCareer()]);
 
   /* 보유 기술 */
-  const [skills, setSkills] = useState<string[]>(["Figma", "Tailwind CSS", "React"]);
+  const [skills, setSkills] = useState<string[]>([
+    "Figma",
+    "Tailwind CSS",
+    "React",
+  ]);
   const [skillInput, setSkillInput] = useState("");
 
   const addCareer = () => setCareers((prev) => [...prev, emptyCareer()]);
@@ -61,9 +59,13 @@ export default function PortfolioPage() {
   const removeCareer = (id: number) =>
     setCareers((prev) => prev.filter((c) => c.id !== id));
 
-  const updateCareer = (id: number, field: keyof CareerEntry, value: string | boolean) =>
+  const updateCareer = (
+    id: number,
+    field: keyof CareerEntry,
+    value: string | boolean,
+  ) =>
     setCareers((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, [field]: value } : c))
+      prev.map((c) => (c.id === id ? { ...c, [field]: value } : c)),
     );
 
   const handleSkillKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -97,7 +99,9 @@ export default function PortfolioPage() {
         external_links: "", // 현재 UI에는 없지만 스펙상 포함
         title: job || "포트폴리오",
         start_date: firstCareer.startDate || "2026-02-06",
-        end_date: firstCareer.isCurrent ? "2026-02-06" : (firstCareer.endDate || "2026-02-06"),
+        end_date: firstCareer.isCurrent
+          ? "2026-02-06"
+          : firstCareer.endDate || "2026-02-06",
         content: firstCareer.description || "상세 내용",
         skills_used: skills.slice(0, 3).join(", "), // 예시로 일부 사용
         results: "주요 성과 요약", // 현재 UI에 맞춰 매핑
@@ -105,6 +109,7 @@ export default function PortfolioPage() {
 
       await createPortfolio(portfolioData);
       alert("포트폴리오가 성공적으로 저장되었습니다!");
+      router.push("/portfolio-analysis");
     } catch (error: any) {
       alert(error.response?.data?.message || "저장 중 오류가 발생했습니다.");
     } finally {
@@ -178,7 +183,10 @@ export default function PortfolioPage() {
         {/* ── Main Content ── */}
         <main className={s.mainContent}>
           {/* 기본 정보 */}
-          <section id="portfolio-step-0" className={`${s.card} ${s.scrollAnchor}`}>
+          <section
+            id="portfolio-step-0"
+            className={`${s.card} ${s.scrollAnchor}`}
+          >
             <div className={s.cardHeader}>
               <h3 className={s.cardTitle}>기본 정보</h3>
               <span className={s.required}>* 필수 입력</span>
@@ -258,17 +266,20 @@ export default function PortfolioPage() {
                     justifyContent: "space-between",
                   }}
                 >
-                  <span className={s.hint}>최소 100자 이상 입력을 권장합니다.</span>
-                  <span className={s.charCount}>
-                    {summary.length} / 500
+                  <span className={s.hint}>
+                    최소 100자 이상 입력을 권장합니다.
                   </span>
+                  <span className={s.charCount}>{summary.length} / 500</span>
                 </div>
               </div>
             </div>
           </section>
 
           {/* 경력 사항 */}
-          <section id="portfolio-step-1" className={`${s.card} ${s.scrollAnchor}`}>
+          <section
+            id="portfolio-step-1"
+            className={`${s.card} ${s.scrollAnchor}`}
+          >
             <div className={s.cardHeader}>
               <h3 className={s.cardTitle}>경력 사항</h3>
               <button type="button" className={s.addBtn} onClick={addCareer}>
@@ -323,10 +334,7 @@ export default function PortfolioPage() {
                   </div>
                 </div>
 
-                <div
-                  className={s.formRow}
-                  style={{ marginBottom: 12 }}
-                >
+                <div className={s.formRow} style={{ marginBottom: 12 }}>
                   <div className={s.formGroup}>
                     <label className={s.label}>재직 기간</label>
                     <div className={s.dateRow}>
@@ -356,7 +364,7 @@ export default function PortfolioPage() {
                             updateCareer(
                               career.id,
                               "isCurrent",
-                              e.target.checked
+                              e.target.checked,
                             )
                           }
                         />
@@ -384,14 +392,15 @@ export default function PortfolioPage() {
           </section>
 
           {/* 보유 기술 */}
-          <section id="portfolio-step-2" className={`${s.card} ${s.scrollAnchor}`}>
+          <section
+            id="portfolio-step-2"
+            className={`${s.card} ${s.scrollAnchor}`}
+          >
             <div className={s.cardHeader}>
               <h3 className={s.cardTitle}>보유 기술</h3>
             </div>
 
-            <label className={s.label}>
-              기술 스택 (최대 10개)
-            </label>
+            <label className={s.label}>기술 스택 (최대 10개)</label>
             <div className={s.tagInputWrap} style={{ marginTop: 8 }}>
               {skills.map((skill) => (
                 <span key={skill} className={s.tag}>
@@ -439,9 +448,9 @@ export default function PortfolioPage() {
         <button type="button" className={s.btnDark}>
           미리보기
         </button>
-        <button 
-          type="button" 
-          className={s.btnPrimary} 
+        <button
+          type="button"
+          className={s.btnPrimary}
           onClick={handleSave}
           disabled={loading}
         >
