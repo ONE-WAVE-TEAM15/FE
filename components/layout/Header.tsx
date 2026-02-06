@@ -42,7 +42,7 @@ export default function Header() {
           <Link href="/portfolio" className="hover:text-primary transition-colors">
             포트폴리오 분석
           </Link>
-          <Link href="#" className="hover:text-primary transition-colors">
+          <Link href="/interview" className="hover:text-primary transition-colors">
             모의면접
           </Link>
         </nav>
