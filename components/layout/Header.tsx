@@ -14,10 +14,10 @@ export default function Header() {
         </div>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-          <Link href="#" className="hover:text-primary transition-colors">
+          <Link href="/" className="hover:text-primary transition-colors">
             서비스 소개
           </Link>
-          <Link href="#" className="hover:text-primary transition-colors">
+          <Link href="/jops" className="hover:text-primary transition-colors">
             채용 분석
           </Link>
           <Link href="#" className="hover:text-primary transition-colors">

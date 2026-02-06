@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import Header from "@/components/signup/Header";
-import Footer from "@/components/signup/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { ChevronRight, ChevronLeft, Check } from "lucide-react";
 
 const STEPS = [
@@ -40,6 +41,7 @@ const STEPS = [
 ];
 
 export default function SurveyPage() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -48,11 +50,6 @@ export default function SurveyPage() {
 
   const handleOptionSelect = (optionId: string) => {
     setAnswers((prev) => ({ ...prev, [currentStepData.id]: optionId }));
-    
-    // 자동 다음 단계 이동 (마지막 단계 제외)
-    if (currentStep < STEPS.length - 1) {
-      setTimeout(() => setCurrentStep(currentStep + 1), 300);
-    }
   };
 
   const handleNext = () => {
@@ -60,8 +57,8 @@ export default function SurveyPage() {
       setCurrentStep(currentStep + 1);
     } else {
       // 설문 완료 처리
-      alert("설문이 완료되었습니다! 분석된 결과를 바탕으로 가이드를 제공해 드릴게요.");
-      window.location.href = "/login";
+      alert("설문이 완료되었습니다! 한번 채용공고들을 살펴보러 가볼까요?");
+      router.push("/jops");
     }
   };
 
@@ -78,7 +75,8 @@ export default function SurveyPage() {
         <div className="w-full max-w-2xl space-y-8">
           <div className="text-center space-y-2">
             <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
-              맞춤형 가이드를 위해<br />
+              맞춤형 가이드를 위해
+              <br />
               <span className="text-primary">간단한 설문</span>을 진행합니다.
             </h1>
             <p className="text-slate-500">약 30초 정도 소요됩니다.</p>
@@ -86,7 +84,9 @@ export default function SurveyPage() {
 
           <div className="space-y-4">
             <div className="flex justify-between text-sm font-medium text-slate-400 px-1">
-              <span>Step {currentStep + 1} of {STEPS.length}</span>
+              <span>
+                Step {currentStep + 1} of {STEPS.length}
+              </span>
               <span>{Math.round(progress)}%</span>
             </div>
             <Progress value={progress} className="h-2 bg-slate-200" />
@@ -110,9 +110,13 @@ export default function SurveyPage() {
                     }`}
                   >
                     <span className="text-2xl">{option.icon}</span>
-                    <span className={`flex-1 font-semibold ${
-                      answers[currentStepData.id] === option.id ? "text-primary" : "text-slate-700"
-                    }`}>
+                    <span
+                      className={`flex-1 font-semibold ${
+                        answers[currentStepData.id] === option.id
+                          ? "text-primary"
+                          : "text-slate-700"
+                      }`}
+                    >
                       {option.label}
                     </span>
                     {answers[currentStepData.id] === option.id && (
@@ -133,7 +137,7 @@ export default function SurveyPage() {
                 >
                   <ChevronLeft className="w-4 h-4 mr-2" /> 이전 단계
                 </Button>
-                
+
                 <Button
                   onClick={handleNext}
                   disabled={!answers[currentStepData.id]}
