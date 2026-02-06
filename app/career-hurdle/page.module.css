@@ -1,0 +1,360 @@
+/* ===== Wrapper ===== */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #faf8f8;
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #ff5a5f, #ff8a8e);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.progressBar {
+  width: 120px;
+  height: 6px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: #ff5a5f;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.stepLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff5a5f;
+  white-space: nowrap;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999999;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: #333333;
+}
+
+/* ===== Main ===== */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+}
+
+.content {
+  max-width: 1060px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== Badge ===== */
+.badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background-color: #fff0f0;
+  color: #ff5a5f;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+/* ===== Question ===== */
+.questionTitle {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1a1a1a;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.questionHighlight {
+  color: #ff5a5f;
+}
+
+.questionSub {
+  font-size: 15px;
+  color: #888888;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* ===== Card Grid ===== */
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 720px;
+  margin-bottom: 40px;
+}
+
+.card {
+  position: relative;
+  background-color: #ffffff;
+  border: 2px solid #f0f0f0;
+  border-radius: 16px;
+  padding: 32px 28px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  border-color: #ffc5c7;
+  box-shadow: 0 4px 16px rgba(255, 90, 95, 0.08);
+}
+
+.cardSelected {
+  border-color: #ff5a5f;
+  box-shadow: 0 4px 20px rgba(255, 90, 95, 0.12);
+}
+
+.cardCheck {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  background-color: #ff5a5f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardIconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.cardIconWrapActive {
+  background-color: #fff0f0;
+}
+
+.cardIconWrapInactive {
+  background-color: #f5f5f5;
+}
+
+.cardTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.cardDesc {
+  font-size: 13px;
+  color: #888888;
+  line-height: 1.5;
+}
+
+/* ===== Trust Badges ===== */
+.trustRow {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 0;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #bbbbbb;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.trustDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.trustDotRed {
+  background-color: #ff5a5f;
+}
+
+.trustDotYellow {
+  background-color: #ffb84d;
+}
+
+/* ===== Bottom Bar ===== */
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background-color: #ffffff;
+  border-top: 1px solid #f0f0f0;
+}
+
+.prevButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #555555;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 0;
+  font-family: inherit;
+  transition: color 0.2s;
+}
+
+.prevButton:hover {
+  color: #1a1a1a;
+}
+
+.bottomBarRight {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.helperText {
+  font-size: 13px;
+  color: #aaaaaa;
+}
+
+.nextButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background-color: #ff5a5f;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.nextButton:hover {
+  background-color: #e04e52;
+}
+
+.nextButton:active {
+  transform: scale(0.98);
+}
+
+.nextButtonDisabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.nextButtonDisabled:hover {
+  background-color: #cccccc;
+}
+
+.nextButtonDisabled:active {
+  transform: none;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .header {
+    padding: 16px 20px;
+  }
+
+  .logoText {
+    font-size: 18px;
+  }
+
+  .progressBar {
+    width: 80px;
+  }
+
+  .main {
+    padding: 32px 20px;
+  }
+
+  .questionTitle {
+    font-size: 24px;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+
+  .trustRow {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bottomBar {
+    padding: 16px 20px;
+  }
+
+  .helperText {
+    display: none;
+  }
+}

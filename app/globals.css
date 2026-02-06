@@ -84,6 +84,22 @@ body {
   }
 }
 
+:root {
+  --cp-primary: #FF5A5F;
+  --cp-primary-light: #FFF0F0;
+  --cp-primary-hover: #E8484D;
+  --cp-dark: #1A1A1A;
+  --cp-gray-900: #222222;
+  --cp-gray-700: #555555;
+  --cp-gray-500: #888888;
+  --cp-gray-300: #CCCCCC;
+  --cp-gray-200: #E5E5E5;
+  --cp-gray-100: #F5F5F5;
+  --cp-white: #FFFFFF;
+  --cp-border: #E0E0E0;
+  --cp-max-width: 1200px;
+}
+
 @layer base {
   * {
     @apply border-border;
