@@ -1,0 +1,197 @@
+.formSection {
+  flex: 1;
+  max-width: 480px;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: #888888;
+  margin-bottom: 32px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  color: #aaaaaa;
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 14px 14px 44px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1a1a1a;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #bbbbbb;
+}
+
+.input:focus {
+  border-color: #FF5A5F;
+  box-shadow: 0 0 0 3px rgba(255, 90, 95, 0.1);
+}
+
+.togglePassword {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaaaaa;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.togglePassword:hover {
+  color: #666666;
+}
+
+.optionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -4px;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #d0d0d0;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.2s, border-color 0.2s;
+  background-color: #ffffff;
+}
+
+.checkboxChecked {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #FF5A5F;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: #FF5A5F;
+}
+
+.checkboxLabel {
+  font-size: 13px;
+  color: #555555;
+}
+
+.forgotPassword {
+  font-size: 13px;
+  color: #999999;
+  text-decoration: none;
+}
+
+.forgotPassword:hover {
+  color: #FF5A5F;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 16px;
+  background-color: #FF5A5F;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 10px;
+}
+
+.submitButton:hover {
+  background-color: #e84e53;
+}
+
+.submitButton:active {
+  transform: scale(0.99);
+}
+
+.submitButton:disabled {
+  background-color: #ffb0b3;
+  cursor: not-allowed;
+}
+
+.signupPrompt {
+  text-align: center;
+  font-size: 14px;
+  color: #888888;
+  margin-top: 24px;
+}
+
+.signupLink {
+  color: #FF5A5F;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.errorText {
+  font-size: 12px;
+  color: #FF5A5F;
+  margin-top: 2px;
+}

@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #faf8f8;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+}
+
+.container {
+  display: flex;
+  gap: 60px;
+  max-width: 1060px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .main {
+    padding: 32px 20px;
+  }
+  .container {
+    flex-direction: column;
+    gap: 30px;
+  }
+}

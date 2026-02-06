@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  TrendingUp,
   Users,
   Compass,
   BarChart,
@@ -12,56 +11,17 @@ import {
   Search,
   Target,
   Rocket,
-  Mic,
   HeartHandshake,
-  Youtube,
-  Instagram,
-  Mail,
   ChevronDown,
 } from "lucide-react";
 import Image from "next/image";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <div className="bg-primary rounded-full p-1">
-              <Compass className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-xl font-bold text-slate-900">Comp-Pass</span>
-          </div>
-
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-            <Link href="#" className="hover:text-primary transition-colors">
-              서비스 소개
-            </Link>
-            <Link href="#" className="hover:text-primary transition-colors">
-              채용 분석
-            </Link>
-            <Link href="#" className="hover:text-primary transition-colors">
-              AI 모의면접
-            </Link>
-            <Link href="#" className="hover:text-primary transition-colors">
-              커리어 성장
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-4">
-            <Link
-              href="#"
-              className="text-sm font-medium text-slate-600 hover:text-primary hidden sm:block"
-            >
-              로그인
-            </Link>
-            <Link href="/signup">
-              <Button className="rounded-full px-6">시작하기</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className="flex-1 flex flex-col items-center w-full">
         {/* Hero Section */}
@@ -376,7 +336,7 @@ export default function LandingPage() {
 
         {/* CTA Section */}
         <section className="w-full py-16 px-4 md:px-6 flex justify-center">
-          <div className="container">
+          <div className="container mx-auto">
             <div className="bg-primary rounded-3xl p-8 md:p-16 text-center text-white relative overflow-hidden">
               {/* Background Graphic Element */}
               <div className="absolute top-0 left-0 w-full h-full opacity-10">
@@ -413,131 +373,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="bg-slate-900 text-slate-300 py-12">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-col md:flex-row justify-between gap-12 mb-12">
-            <div className="space-y-4 max-w-sm">
-              <div className="flex items-center gap-2 text-white">
-                <Compass className="h-6 w-6" />
-                <span className="text-xl font-bold">Comp-Pass</span>
-              </div>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                당신의 첫 출근부터 다음 정점까지, 끝까지 책임지는 길잡이.
-                컴패스는 AI 기술을 통해 모든 구직자와 직장인의 성장을 돕습니다.
-              </p>
-              <div className="flex gap-4 pt-2">
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-8 w-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400"
-                >
-                  <Instagram className="h-4 w-4" />
-                </Button>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-8 w-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400"
-                >
-                  <Youtube className="h-4 w-4" />
-                </Button>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-8 w-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400"
-                >
-                  <Mail className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-sm">
-              <div className="space-y-4">
-                <h4 className="font-bold text-white">서비스</h4>
-                <ul className="space-y-2">
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      AI 역량진단
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      포트폴리오 분석
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      AI 모의면접
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      현직자 커뮤니티
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="space-y-4">
-                <h4 className="font-bold text-white">고객지원</h4>
-                <ul className="space-y-2">
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      자주 묻는 질문
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      공지사항
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      1:1 문의
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      이용약관
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="space-y-4">
-                <h4 className="font-bold text-white">회사</h4>
-                <ul className="space-y-2">
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      팀 소개
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      채용 정보
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      비즈니스 협업
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="hover:text-white">
-                      개인정보처리방침
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-            <p>© 2025 Comp-Pass Inc. All rights reserved.</p>
-            <div className="flex items-center gap-2">
-              <span>Family Site</span>
-              <ChevronDown className="h-3 w-3" />
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

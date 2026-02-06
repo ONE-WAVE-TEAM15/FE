@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
+import Link from "next/link";
 import styles from "./SignupForm.module.css";
 
 interface FormData {
@@ -21,7 +22,6 @@ export default function SignupForm() {
     name: "",
     email: "",
     password: "",
-    passwordConfirm: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +31,9 @@ export default function SignupForm() {
     privacy: false,
   });
 
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
+    {},
+  );
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +43,7 @@ export default function SignupForm() {
         setErrors((prev) => ({ ...prev, [name]: "" }));
       }
     },
-    [errors]
+    [errors],
   );
 
   const handleAllTerms = useCallback(() => {
@@ -55,7 +57,7 @@ export default function SignupForm() {
       newTerms.all = newTerms.terms && newTerms.privacy;
       setTerms(newTerms);
     },
-    [terms]
+    [terms],
   );
 
   const validate = useCallback((): boolean => {
@@ -101,7 +103,7 @@ export default function SignupForm() {
       }
       alert("회원가입이 완료되었습니다!");
     },
-    [validate, terms]
+    [validate, terms],
   );
 
   return (
@@ -140,7 +142,9 @@ export default function SignupForm() {
               autoComplete="name"
             />
           </div>
-          {errors.name && <span className={styles.errorText}>{errors.name}</span>}
+          {errors.name && (
+            <span className={styles.errorText}>{errors.name}</span>
+          )}
         </div>
 
         {/* 이메일 */}
@@ -303,9 +307,7 @@ export default function SignupForm() {
               }}
             >
               <div
-                className={
-                  terms.all ? styles.checkboxChecked : styles.checkbox
-                }
+                className={terms.all ? styles.checkboxChecked : styles.checkbox}
               >
                 {terms.all && (
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -322,7 +324,9 @@ export default function SignupForm() {
               <div>
                 <div className={styles.checkboxLabel}>{"전체 약관 동의"}</div>
                 <div className={styles.checkboxSublabel}>
-                  {"이용약관, 개인정보 수집 및 이용, 마케팅 정보 수신(선택)에 모두 동의합니다."}
+                  {
+                    "이용약관, 개인정보 수집 및 이용, 마케팅 정보 수신(선택)에 모두 동의합니다."
+                  }
                 </div>
               </div>
             </div>
@@ -428,9 +432,9 @@ export default function SignupForm() {
 
       <p className={styles.loginPrompt}>
         {"이미 계정이 있으신가요? "}
-        <button type="button" className={styles.loginLink}>
+        <Link href="/login" className={styles.loginLink}>
           {"로그인 하기"}
-        </button>
+        </Link>
       </p>
     </div>
   );

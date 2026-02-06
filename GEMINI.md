@@ -35,6 +35,10 @@
 
 ### 해야할 일
 
-메인페이지에 있는 회원가입 부분은 /signup으로 옮기고, 메인 페이지 ui를 사진처럼 수정해줘
+/login 로그인 페이지를 아래 사진처럼 만들어주고
 
-![alt text](메인페이지.png)
+https://onewave.hsh-server.com/docs#/
+
+백엔드에서 제공한 api를 사용하여 로그인 기능을 구현해줘
+
+![alt text](c:\Users\seoheewon\Downloads\login.png)
