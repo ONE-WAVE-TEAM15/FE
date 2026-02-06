@@ -115,7 +115,7 @@ export default function SpecSuggestionPage() {
         {/* ── Page Header ── */}
         <div className={s.headerMeta}>
           <span className={s.reportBadge}>도메인 타겟팅 리포트</span>
-          <span className={s.dateMeta}>| 2025.05 분석 기준</span>
+          <span className={s.dateMeta}>| 2026.02.07 분석 기준</span>
         </div>
         <h1 className={s.pageTitle}>
           김철수 님을 위한
