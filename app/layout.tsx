@@ -11,7 +11,7 @@ const notoSansKR = Noto_Sans_KR({
 })
 
 export const metadata: Metadata = {
-  title: 'Comp-Pass | 회원가입',
+  title: '컴패스',
   description: 'Comp-Pass의 새로운 가족이 되어주세요. 꿈꾸던 기업으로의 여정, 가장 체계적인 로드맵을 제시해 드립니다.',
 }
 

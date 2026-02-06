@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -40,6 +41,7 @@ const STEPS = [
 ];
 
 export default function SurveyPage() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -61,7 +63,7 @@ export default function SurveyPage() {
     } else {
       // 설문 완료 처리
       alert("설문이 완료되었습니다! 분석된 결과를 바탕으로 가이드를 제공해 드릴게요.");
-      window.location.href = "/login";
+      router.replace("/");
     }
   };
 

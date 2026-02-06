@@ -106,10 +106,10 @@ export default function JobsPage() {
         </div>
 
         <nav className={styles.nav} aria-label="메인 내비게이션">
-          <a href="#" className={styles.navLink}>{"서비스 소개"}</a>
-          <a href="#" className={styles.navLink}>{"AI 면접관"}</a>
-          <a href="#" className={styles.navLink}>{"커리어 로드맵"}</a>
-          <a href="/jobs" className={styles.navLinkActive}>{"채용공고 분석"}</a>
+          <a href="#" className={styles.navLink}>{"채용 공고"}</a>
+          <a href="#" className={styles.navLink}>{"스펙 쌓기"}</a>
+          <a href="#" className={styles.navLink}>{"포트폴리오 분석"}</a>
+          <a href="/jobs" className={styles.navLinkActive}>{"모의면접"}</a>
         </nav>
 
         <div className={styles.rightArea}>

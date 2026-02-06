@@ -15,16 +15,16 @@ export default function Header() {
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
           <Link href="#" className="hover:text-primary transition-colors">
-            서비스 소개
+            채용 공고
           </Link>
           <Link href="#" className="hover:text-primary transition-colors">
-            채용 분석
+            스펙 쌓기
           </Link>
           <Link href="#" className="hover:text-primary transition-colors">
-            AI 모의면접
+            포트폴리오 분석
           </Link>
           <Link href="#" className="hover:text-primary transition-colors">
-            커리어 성장
+            모의면접
           </Link>
         </nav>
 
