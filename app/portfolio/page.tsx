@@ -4,6 +4,7 @@ import React, { useState, type KeyboardEvent } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import s from "./portfolio.module.css";
+import { createPortfolio, PortfolioRequest } from "./portfolioService";
 
 const STEPS = [
   "기본 정보 & 요약",
@@ -40,6 +41,7 @@ const emptyCareer = (): CareerEntry => ({
 
 export default function PortfolioPage() {
   const [activeStep, setActiveStep] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   /* 기본 정보 */
   const [name, setName] = useState("");
@@ -82,6 +84,32 @@ export default function PortfolioPage() {
     const clean = skill.replace("#", "");
     if (!skills.includes(clean) && skills.length < 10) {
       setSkills((prev) => [...prev, clean]);
+    }
+  };
+
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      // API 스펙에 맞춰 데이터 매핑 (이미지 참조)
+      const firstCareer = careers[0] || {};
+      const portfolioData: PortfolioRequest = {
+        self_summary: summary,
+        user_skills: skills.join(", "),
+        external_links: "", // 현재 UI에는 없지만 스펙상 포함
+        title: job || "포트폴리오",
+        start_date: firstCareer.startDate || "2026-02-06",
+        end_date: firstCareer.isCurrent ? "2026-02-06" : (firstCareer.endDate || "2026-02-06"),
+        content: firstCareer.description || "상세 내용",
+        skills_used: skills.slice(0, 3).join(", "), // 예시로 일부 사용
+        results: "주요 성과 요약", // 현재 UI에 맞춰 매핑
+      };
+
+      await createPortfolio(portfolioData);
+      alert("포트폴리오가 성공적으로 저장되었습니다!");
+    } catch (error: any) {
+      alert(error.response?.data?.message || "저장 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -404,8 +432,13 @@ export default function PortfolioPage() {
         <button type="button" className={s.btnDark}>
           미리보기
         </button>
-        <button type="button" className={s.btnPrimary}>
-          다음 단계로 이동
+        <button 
+          type="button" 
+          className={s.btnPrimary} 
+          onClick={handleSave}
+          disabled={loading}
+        >
+          {loading ? "저장 중..." : "다음 단계로 이동"}
         </button>
       </div>
 
