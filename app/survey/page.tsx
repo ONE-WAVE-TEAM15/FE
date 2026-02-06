@@ -57,6 +57,7 @@ export default function SurveyPage() {
       setCurrentStep(currentStep + 1);
     } else {
       // 설문 완료 처리
+
       alert("설문이 완료되었습니다! 한번 채용공고들을 살펴보러 가볼까요?");
       router.push("/jops");
     }

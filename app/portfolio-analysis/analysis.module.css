@@ -1,0 +1,440 @@
+/* ── Layout ── */
+.pageWrapper {
+  min-height: 100vh;
+  background: var(--cp-gray-100);
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: var(--cp-max-width);
+  margin: 0 auto;
+  padding: 40px 40px 0;
+  flex: 1;
+  width: 100%;
+}
+
+/* ── Card ── */
+.card {
+  background: var(--cp-white);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid var(--cp-border);
+  margin-bottom: 24px;
+}
+
+/* ── Score Header ── */
+.scoreHeader {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 28px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--cp-dark);
+}
+
+.topBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: var(--cp-primary-light);
+  color: var(--cp-primary);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 20px;
+}
+
+/* Circle Score */
+.circleScoreWrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+}
+
+.circleSvg {
+  width: 160px;
+  height: 160px;
+  transform: rotate(-90deg);
+}
+
+.circleTrack {
+  fill: none;
+  stroke: var(--cp-gray-200);
+  stroke-width: 8;
+}
+
+.circleFill {
+  fill: none;
+  stroke: var(--cp-primary);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease;
+}
+
+.circleText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.circleNumber {
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--cp-dark);
+  line-height: 1;
+}
+
+.circleLabel {
+  font-size: 14px;
+  color: var(--cp-gray-500);
+  margin-top: 4px;
+}
+
+/* Progress Bars */
+.progressList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.progressItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.progressLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cp-dark);
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.progressBarWrap {
+  flex: 1;
+  height: 10px;
+  background: var(--cp-gray-200);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: 5px;
+  background: var(--cp-primary);
+  transition: width 1s ease;
+}
+
+.progressValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cp-primary);
+  width: 40px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Score Description */
+.scoreDesc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--cp-gray-700);
+}
+
+.scoreDescBold {
+  font-weight: 700;
+  color: var(--cp-dark);
+}
+
+/* Decoration icon top-right */
+.scoreDecoIcon {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  opacity: 0.12;
+}
+
+/* ── Strengths & Improvements ── */
+.twoCol {
+  display: flex;
+  gap: 24px;
+}
+
+.halfCard {
+  flex: 1;
+  background: var(--cp-white);
+  border-radius: 16px;
+  padding: 28px;
+  border: 1px solid var(--cp-border);
+}
+
+.halfCardTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--cp-dark);
+  margin-bottom: 20px;
+}
+
+.halfCardTitleIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.strengthIcon {
+  background: #e6f9f0;
+  color: #22c55e;
+}
+
+.improvementIcon {
+  background: #fff4e5;
+  color: #f59e0b;
+}
+
+.feedbackList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedbackItem {
+  display: flex;
+  gap: 10px;
+}
+
+.feedbackDot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 10px;
+}
+
+.feedbackDotGreen {
+  background: #e6f9f0;
+  color: #22c55e;
+}
+
+.feedbackDotRed {
+  background: var(--cp-primary-light);
+  color: var(--cp-primary);
+}
+
+.feedbackContent {
+  flex: 1;
+}
+
+.feedbackTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cp-dark);
+  margin-bottom: 4px;
+}
+
+.feedbackDesc {
+  font-size: 13px;
+  color: var(--cp-gray-500);
+  line-height: 1.5;
+}
+
+/* ── Market Fit ── */
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--cp-dark);
+  margin-bottom: 24px;
+}
+
+.marketCards {
+  display: flex;
+  gap: 20px;
+}
+
+.marketCard {
+  flex: 1;
+  text-align: center;
+  padding: 24px 16px;
+  border: 1px solid var(--cp-border);
+  border-radius: 12px;
+  background: var(--cp-white);
+}
+
+.marketCardLabel {
+  font-size: 13px;
+  color: var(--cp-gray-500);
+  margin-bottom: 12px;
+}
+
+.marketCardValue {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cp-dark);
+  margin-bottom: 8px;
+}
+
+.marketCardStars {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 0;
+}
+
+.starFilled {
+  color: #f59e0b;
+}
+
+.starEmpty {
+  color: var(--cp-gray-200);
+}
+
+.marketCardSub {
+  font-size: 12px;
+  color: var(--cp-gray-500);
+  margin-top: 4px;
+}
+
+.marketCardHighlight {
+  font-size: 12px;
+  color: var(--cp-primary);
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* ── Keywords ── */
+.keywordTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.keywordTag {
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-white);
+  color: var(--cp-gray-700);
+  cursor: default;
+}
+
+.keywordTagPrimary {
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  background: var(--cp-primary);
+  color: var(--cp-white);
+  cursor: default;
+}
+
+.keywordTagDark {
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  background: var(--cp-gray-900);
+  color: var(--cp-white);
+  cursor: default;
+}
+
+/* ── Bottom Actions ── */
+.bottomActions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px 0 60px;
+  max-width: var(--cp-max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.btnOutline {
+  padding: 14px 36px;
+  border-radius: 28px;
+  border: 1px solid var(--cp-border);
+  background: var(--cp-white);
+  color: var(--cp-dark);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btnOutline:hover {
+  background: var(--cp-gray-100);
+}
+
+.btnDark {
+  padding: 14px 36px;
+  border-radius: 28px;
+  border: none;
+  background: var(--cp-gray-900);
+  color: var(--cp-white);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.btnDark:hover {
+  background: #333;
+}
+
+.btnPrimary {
+  padding: 14px 44px;
+  border-radius: 28px;
+  border: none;
+  background: var(--cp-primary);
+  color: var(--cp-white);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btnPrimary:hover {
+  background: var(--cp-primary-hover);
+}

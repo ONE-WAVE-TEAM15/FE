@@ -33,14 +33,17 @@ export default function LandingPage() {
                   CAREER LIFE CYCLE PARTNER
                 </div>
                 <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl xl:text-6xl leading-[1.2]">
-                  당신의 첫 출근부터
+                  취업의 시작부터
                   <br />
-                  <span className="text-primary">다음 정점까지</span>,<br />
-                  끝까지 책임지는 길잡이
+                  <span className="text-primary">안착과 성장</span>까지
+                  <br />
+                  함께합니다
                 </h1>
                 <p className="max-w-[600px] text-slate-500 md:text-lg">
-                  컴패스는 단순한 취업 지원을 넘어, 당신의 전 생애 커리어 여정을
-                  함께하는 동반자입니다. 성장의 관문을 넘는 가장 확실한 방법.
+                  컴패스는 단순한 취업 지원을 넘어, 당신의 커리어 여정을 함께하는
+                  동반자입니다.
+                  <br />
+                  성장의 관문을 넘는 가장 확실한 방법.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <Link href="/signup">
@@ -114,8 +117,8 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-xl font-bold">상호작용의 힘</h3>
                   <p className="text-slate-500 leading-relaxed">
-                    논문에 따르면 능동적 상호작용 서비스는 단순 정보형 대비 취업
-                    성공률을 약 2.4배 높이는 것으로 나타났습니다.
+                    CRM 시스템을 통해서 사용자와 효과적으로 상호작용하며 동반자
+                    역할을 수행합니다.
                   </p>
                 </CardContent>
               </Card>

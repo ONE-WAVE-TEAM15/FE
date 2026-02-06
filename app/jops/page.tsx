@@ -134,6 +134,7 @@ export default function JobsPage() {
   return (
     <div className={styles.wrapper}>
       {/* ===== Header ===== */}
+
       <Header />
 
       {/* ===== Main Content ===== */}
