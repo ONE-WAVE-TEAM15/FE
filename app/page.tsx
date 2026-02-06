@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import React, { useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -19,6 +22,23 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 export default function LandingPage() {
+  const whyRef = useRef<HTMLElement | null>(null);
+
+  const handleExploreClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (whyRef.current) {
+        const extraOffset = 5;
+        const targetTop = whyRef.current.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: targetTop - extraOffset,
+          behavior: "smooth",
+        });
+      }
+    },
+    [],
+  );
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <Header />
@@ -67,13 +87,15 @@ export default function LandingPage() {
                       무료로 커리어 진단받기
                     </Button>
                   </Link>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="h-12 px-8 text-base rounded-md bg-white w-full sm:w-auto hover:bg-slate-50"
-                  >
-                    서비스 둘러보기
-                  </Button>
+                  <Link href="#why-compass" onClick={handleExploreClick}>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="h-12 px-8 text-base rounded-md bg-white w-full sm:w-auto hover:bg-slate-50"
+                    >
+                      서비스 둘러보기
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -81,7 +103,11 @@ export default function LandingPage() {
         </section>
 
         {/* Why Comp-Pass Section */}
-        <section className="w-full py-16 md:py-24 bg-white flex justify-center">
+        <section
+          ref={whyRef}
+          id="why-compass"
+          className="w-full py-16 md:py-24 bg-white flex justify-center scroll-mt-24"
+        >
           <div className="container px-4 md:px-6">
             <div className="text-center mb-16 space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
@@ -159,7 +185,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-lg font-bold relative z-10">역량 진단</h3>
                   <p className="text-sm text-slate-500 leading-relaxed relative z-10">
-                    회원가입 시 정밀 설문을 통해 현재 위치를 객관적으로
+                    회원가입 시 간단 설문을 통해 현재 상태와 수준을 객관적으로
                     분석합니다.
                   </p>
                   <div className="w-8 h-1 bg-primary mt-4 rounded-full"></div>
@@ -175,10 +201,10 @@ export default function LandingPage() {
                     <Search className="w-5 h-5 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold relative z-10">
-                    공고 & 포폴 분석
+                    채용공고 & 포트폴리오 분석
                   </h3>
                   <p className="text-sm text-slate-500 leading-relaxed relative z-10">
-                    희망 공고와 포트폴리오의 간극을 분석하여 합격 전략을
+                    희망 공고와 포트폴리오의 간극을 분석하여 보충 전략을
                     제시합니다.
                   </p>
                   <div className="w-8 h-1 bg-slate-200 mt-4 rounded-full"></div>

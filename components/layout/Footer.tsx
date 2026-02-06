@@ -13,8 +13,7 @@ export default function Footer() {
               <span className="text-xl font-bold">Comp-Pass</span>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed">
-              당신의 첫 출근부터 다음 정점까지, 끝까지 책임지는 길잡이.
-              컴패스는 AI 기술을 통해 모든 구직자와 직장인의 성장을 돕습니다.
+              단순한 취업 지원을 넘어, 당신의 커리어 여정을 함께하는 동반자.
             </p>
             <div className="flex gap-4 pt-2">
               <Button
@@ -121,11 +120,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-          <p>© 2025 Comp-Pass Inc. All rights reserved.</p>
-          <div className="flex items-center gap-2">
-            <span>Family Site</span>
-            <ChevronDown className="h-3 w-3" />
-          </div>
+          <p>© 2026 Comp-Pass Inc. All rights reserved.</p>
         </div>
       </div>
     </footer>
