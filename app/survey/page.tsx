@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -44,6 +44,19 @@ export default function SurveyPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // 클라이언트 사이드에서만 실행
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      router.push("/login");
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [router]);
+
+  if (!isLoggedIn) return null;
 
   const progress = ((currentStep + 1) / STEPS.length) * 100;
   const currentStepData = STEPS[currentStep];

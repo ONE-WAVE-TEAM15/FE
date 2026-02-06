@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import s from "./analysis.module.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 /* ── Data ── */
 const SCORE = 85;
@@ -58,6 +59,21 @@ const keywords = [
 ];
 
 export default function PortfolioAnalysisPage() {
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // 클라이언트 사이드에서만 실행
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      router.push("/login");
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [router]);
+
+  if (!isLoggedIn) return null;
+
   return (
     <div className={s.pageWrapper}>
       <Header />

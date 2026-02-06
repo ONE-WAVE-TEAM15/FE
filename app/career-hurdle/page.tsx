@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import s from "./page.module.css";
 
 /* ── data ── */
@@ -97,7 +98,21 @@ const iconMap: Record<string, React.FC> = {
 
 /* ── Page ── */
 export default function CareerHurdlePage() {
+  const router = useRouter();
   const [selected, setSelected] = useState<string | null>("portfolio");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // 클라이언트 사이드에서만 실행
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      router.push("/login");
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [router]);
+
+  if (!isLoggedIn) return null;
 
   return (
     <div className={s.wrapper}>

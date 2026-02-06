@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react"
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import { useState, type FormEvent } from "react";
 import Header from "@/components/layout/Header";
@@ -10,7 +11,16 @@ import styles from "./interview.module.css";
 /* ─── SVG Icons (inline) ─── */
 function RobotIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="3" y="11" width="18" height="10" rx="2" />
       <circle cx="12" cy="5" r="2" />
       <path d="M12 7v4" />
@@ -22,7 +32,16 @@ function RobotIcon() {
 
 function MicIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
       <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
       <line x1="12" y1="19" x2="12" y2="22" />
@@ -40,10 +59,25 @@ function SendIcon() {
 
 function KeyboardIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="M6 8h.001" /><path d="M10 8h.001" /><path d="M14 8h.001" /><path d="M18 8h.001" />
-      <path d="M6 12h.001" /><path d="M10 12h.001" /><path d="M14 12h.001" /><path d="M18 12h.001" />
+      <path d="M6 8h.001" />
+      <path d="M10 8h.001" />
+      <path d="M14 8h.001" />
+      <path d="M18 8h.001" />
+      <path d="M6 12h.001" />
+      <path d="M10 12h.001" />
+      <path d="M14 12h.001" />
+      <path d="M18 12h.001" />
       <path d="M8 16h8" />
     </svg>
   );
@@ -51,7 +85,16 @@ function KeyboardIcon() {
 
 function InfoIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <circle cx="12" cy="12" r="10" />
       <line x1="12" y1="16" x2="12" y2="12" />
       <line x1="12" y1="8" x2="12.01" y2="8" />
@@ -61,7 +104,16 @@ function InfoIcon() {
 
 function UserIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#888"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
     </svg>
@@ -104,10 +156,18 @@ const INITIAL_MESSAGES: ChatMessage[] = [
 ];
 
 export default function MockInterviewPage() {
+  const router = useRouter();
   const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState("");
   const [minutes, setMinutes] = useState(12);
   const [seconds, setSeconds] = useState(45);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      router.push("/login");
+    }
+  }, []);
 
   const handleSend = (e?: FormEvent) => {
     e?.preventDefault();
@@ -122,7 +182,11 @@ export default function MockInterviewPage() {
       text: input.trim(),
     };
 
-    setMessages((prev) => prev.map((m) => (m.type === "ai" ? { ...m, isSpeaking: false } : m)).concat(userMsg));
+    setMessages((prev) =>
+      prev
+        .map((m) => (m.type === "ai" ? { ...m, isSpeaking: false } : m))
+        .concat(userMsg),
+    );
     setInput("");
 
     /* Simulate timer advance */
@@ -182,7 +246,10 @@ export default function MockInterviewPage() {
                 <span className={styles.evalBadgeExcellent}>우수</span>
               </div>
               <div className={styles.progressBarBg}>
-                <div className={styles.progressFillRed} style={{ width: "78%" }} />
+                <div
+                  className={styles.progressFillRed}
+                  style={{ width: "78%" }}
+                />
               </div>
             </div>
 
@@ -192,7 +259,10 @@ export default function MockInterviewPage() {
                 <span className={styles.evalBadgeNormal}>보통</span>
               </div>
               <div className={styles.progressBarBg}>
-                <div className={styles.progressFillBlue} style={{ width: "52%" }} />
+                <div
+                  className={styles.progressFillBlue}
+                  style={{ width: "52%" }}
+                />
               </div>
             </div>
           </div>
@@ -228,9 +298,7 @@ export default function MockInterviewPage() {
                           <RobotIcon />
                         </span>
                       </div>
-                      <span className={styles.aiName}>
-                        AI 면접관 Vinsign
-                      </span>
+                      <span className={styles.aiName}>AI 면접관 Vinsign</span>
                       <span className={styles.messageTime}>{aiMsg.time}</span>
                     </div>
                     <div className={styles.aiBubble}>{aiMsg.text}</div>
@@ -278,7 +346,11 @@ export default function MockInterviewPage() {
                 rows={3}
               />
               <div className={styles.inputActions}>
-                <button type="button" className={styles.micBtn} aria-label="마이크">
+                <button
+                  type="button"
+                  className={styles.micBtn}
+                  aria-label="마이크"
+                >
                   <MicIcon />
                 </button>
                 <button type="submit" className={styles.sendBtn}>

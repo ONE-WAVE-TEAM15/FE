@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, type KeyboardEvent } from "react";
+import React, { useState, useEffect, type KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -35,6 +35,19 @@ export default function PortfolioPage() {
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // 클라이언트 사이드에서만 실행
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      router.push("/login");
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [router]);
+
+  if (!isLoggedIn) return null;
 
   /* 기본 정보 */
   const [name, setName] = useState("");

@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import s from "./spec.module.css";
@@ -92,6 +93,17 @@ const insights = [
 ];
 
 export default function SpecSuggestionPage() {
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    // 클라이언트 사이드에서만 실행
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      router.push("/login");
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [router]);
   return (
     <div className={s.pageWrapper}>
       <Header />
@@ -105,7 +117,9 @@ export default function SpecSuggestionPage() {
         <h1 className={s.pageTitle}>
           김철수 님을 위한
           <br />
-          <span className={s.pageTitleHighlight}>핀테크(Fin-tech) 도메인</span>{" "}
+          <span className={s.pageTitleHighlight}>
+            핀테크(Fin-tech) 도메인
+          </span>{" "}
           맞춤형 스펙 제안
         </h1>
 
@@ -136,12 +150,9 @@ export default function SpecSuggestionPage() {
               </div>
 
               <div className={s.tipBox}>
-                <span className={s.tipIcon}>💡</span> 현재 기술 역량은
-                충분하니,{" "}
-                <span className={s.tipBold}>
-                  금융 보안 및 결제 프로세스
-                </span>
-                에 대한 도메인 경험 보완이 최우선 과제입니다.
+                <span className={s.tipIcon}>💡</span> 현재 기술 역량은 충분하니,{" "}
+                <span className={s.tipBold}>금융 보안 및 결제 프로세스</span>에
+                대한 도메인 경험 보완이 최우선 과제입니다.
               </div>
             </div>
           </div>

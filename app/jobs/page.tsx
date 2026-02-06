@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { getJobs, Job } from "./jobs";
 import Header from "@/components/layout/Header";
@@ -80,6 +81,7 @@ const BG_COLORS = ["#FFD700", "#FF6B35", "#3B5BDB", "#4CAF50", "#9C27B0"];
 
 /* ===== Main Page ===== */
 export default function JobsPage() {
+  const router = useRouter();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedFields, setSelectedFields] = useState<string[]>([
     "프론트엔드 개발",
@@ -87,11 +89,23 @@ export default function JobsPage() {
   const [selectedTech, setSelectedTech] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // 클라이언트 사이드에서만 실행
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      router.push("/login");
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [router]);
 
   const jobsPerPage = 5;
   const totalPages = Math.ceil(jobs.length / jobsPerPage) || 1;
 
   const fetchJobs = async () => {
+    if (!isLoggedIn) return;
     setLoading(true);
     try {
       const domain =
@@ -130,6 +144,8 @@ export default function JobsPage() {
     (currentPage - 1) * jobsPerPage,
     currentPage * jobsPerPage,
   );
+
+  if (!isLoggedIn) return null;
 
   return (
     <div className={styles.wrapper}>

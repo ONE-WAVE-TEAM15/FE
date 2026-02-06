@@ -35,5 +35,16 @@
 
 ### 해야할 일
 
-portfolio 폴더 에서 post요청 부분만 따로 분리해서 아래 사진에 맟춰 코드를 작성해줘
-![alt text](image.png)
+/, /signup, /login 페이지를 제외하고 모든 페이지에 로컬 스토리지 토큰을 체크하고, 없다면 로그인 페이지로 리다이렉트하게 코드를 수정해줘
+
+로컬 스토리지 토큰확인은 다음과 같이 작성하면 돼
+
+```javascript
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+useEffect(() => {
+  // 클라이언트 사이드에서만 실행
+  const token = localStorage.getItem("accessToken");
+  setIsLoggedIn(!!token);
+}, []);
+```

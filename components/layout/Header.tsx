@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Compass } from "lucide-react";
+import Image from "next/image";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,32 +25,38 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="bg-primary rounded-full p-1">
-            <Compass className="h-5 w-5 text-white" />
-          </div>
+          <Image src="./favicon.ico" alt="logo" width={30} height={30} />
           <span className="text-xl font-bold text-slate-900">Comp-Pass</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-
-          <Link href="/jops" className="hover:text-primary transition-colors">
+          <Link href="/jobs" className="hover:text-primary transition-colors">
             채용 공고
           </Link>
-          <Link href="/spec-suggestion" className="hover:text-primary transition-colors">
+          <Link
+            href="/spec-suggestion"
+            className="hover:text-primary transition-colors"
+          >
             스펙 쌓기
           </Link>
-          <Link href="/portfolio" className="hover:text-primary transition-colors">
+          <Link
+            href="/portfolio"
+            className="hover:text-primary transition-colors"
+          >
             포트폴리오 분석
           </Link>
-          <Link href="/interview" className="hover:text-primary transition-colors">
+          <Link
+            href="/interview"
+            className="hover:text-primary transition-colors"
+          >
             모의면접
           </Link>
         </nav>
 
         <div className="flex items-center gap-4">
           {isLoggedIn ? (
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               onClick={handleLogout}
               className="text-sm font-medium text-slate-600 hover:text-primary"
             >
