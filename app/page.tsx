@@ -125,7 +125,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-xl font-bold">심각해지는 취업난</h3>
                   <p className="text-slate-500 leading-relaxed">
-                    청년 및 중장년층의 구직 기간이 전년 대비 15% 증가하며, 단순
+                    청년 및 중장년층의 구직 기간이 전년 대비 12.3% 이상 증가하며, 단순
                     정보 제공 이상의 밀착 관리가 절실해졌습니다.
                   </p>
                 </CardContent>
