@@ -2,11 +2,14 @@
 
 import React, { useState, useCallback } from "react";
 import Link from "next/link";
+import axios from "axios";
 import styles from "./SignupForm.module.css";
+import { useRouter } from "next/navigation";
 
 interface FormData {
-  name: string;
+  username: string;
   email: string;
+  phoneNumber: string;
   password: string;
   passwordConfirm: string;
 }
@@ -18,10 +21,13 @@ interface TermsState {
 }
 
 export default function SignupForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
-    name: "",
+    username: "",
     email: "",
+    phoneNumber: "",
     password: "",
+    passwordConfirm: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -34,6 +40,7 @@ export default function SignupForm() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
     {},
   );
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,14 +70,20 @@ export default function SignupForm() {
   const validate = useCallback((): boolean => {
     const newErrors: Partial<Record<keyof FormData, string>> = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = "이름을 입력해주세요.";
+    if (!formData.username.trim()) {
+      newErrors.username = "이름을 입력해주세요.";
     }
 
     if (!formData.email.trim()) {
       newErrors.email = "이메일을 입력해주세요.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "올바른 이메일 형식을 입력해주세요.";
+    }
+
+    if (!formData.phoneNumber.trim()) {
+      newErrors.phoneNumber = "전화번호를 입력해주세요.";
+    } else if (!/^\d+$/.test(formData.phoneNumber)) {
+      newErrors.phoneNumber = "숫자만 입력해주세요.";
     }
 
     if (!formData.password) {
@@ -93,18 +106,35 @@ export default function SignupForm() {
     return Object.keys(newErrors).length === 0;
   }, [formData]);
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!validate()) return;
-      if (!terms.terms || !terms.privacy) {
-        alert("필수 약관에 동의해주세요.");
-        return;
-      }
-      alert("회원가입이 완료되었습니다!");
-    },
-    [validate, terms],
-  );
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    if (!terms.terms || !terms.privacy) {
+      alert("필수 약관에 동의해주세요.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await axios.post("https://onewave.hsh-server.com/auth/signup", {
+        name: formData.username,
+        email: formData.email,
+        phone_number: formData.phoneNumber,
+        password: formData.password,
+      });
+
+      alert("회원가입이 완료되었습니다! 간단한 설문조사 페이지로 이동합니다.");
+      router.push("/login");
+    } catch (err: any) {
+      console.log(err);
+      const message =
+        err.response?.data?.message || "회원가입 중 오류가 발생했습니다.";
+      alert(message);
+      console.error("Signup error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={styles.formSection}>
@@ -116,7 +146,7 @@ export default function SignupForm() {
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
         {/* 이름 */}
         <div className={styles.fieldGroup}>
-          <label className={styles.label} htmlFor="name">
+          <label className={styles.label} htmlFor="username">
             {"이름"}
           </label>
           <div className={styles.inputWrapper}>
@@ -132,18 +162,18 @@ export default function SignupForm() {
               </svg>
             </span>
             <input
-              id="name"
-              name="name"
+              id="username"
+              name="username"
               type="text"
               className={styles.input}
               placeholder="홍길동"
-              value={formData.name}
+              value={formData.username}
               onChange={handleInputChange}
-              autoComplete="name"
+              autoComplete="username"
             />
           </div>
-          {errors.name && (
-            <span className={styles.errorText}>{errors.name}</span>
+          {errors.username && (
+            <span className={styles.errorText}>{errors.username}</span>
           )}
         </div>
 
@@ -184,6 +214,38 @@ export default function SignupForm() {
           </div>
           {errors.email && (
             <span className={styles.errorText}>{errors.email}</span>
+          )}
+        </div>
+
+        {/* 전화번호 */}
+        <div className={styles.fieldGroup}>
+          <label className={styles.label} htmlFor="phoneNumber">
+            {"전화번호"}
+          </label>
+          <div className={styles.inputWrapper}>
+            <span className={styles.inputIcon}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M22 16.92V19.92C22 20.4723 21.5523 20.92 21 20.92C11.6112 20.92 4 13.3088 4 3.92C4 3.36772 4.44772 2.92 5 2.92H8C8.55228 2.92 9 3.36772 9 3.92V6.92C9 7.47228 8.55228 7.92 8 7.92H6.5C6.5 7.92 6.5 13.42 12 13.42V11.92C12 11.3677 12.4477 10.92 13 10.92H16C16.5523 10.92 17 11.3677 17 11.92V14.92C17 15.4723 16.5523 15.92 16 15.92H14.5C14.5 15.92 14.5 17.42 18 17.42H20C20.5523 17.42 21 16.9723 21 16.42V16.92Z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+            <input
+              id="phoneNumber"
+              name="phoneNumber"
+              type="tel"
+              className={styles.input}
+              placeholder="01012345678"
+              value={formData.phoneNumber}
+              onChange={handleInputChange}
+            />
+          </div>
+          {errors.phoneNumber && (
+            <span className={styles.errorText}>{errors.phoneNumber}</span>
           )}
         </div>
 
@@ -416,17 +478,23 @@ export default function SignupForm() {
         </div>
 
         {/* 가입 버튼 */}
-        <button type="submit" className={styles.submitButton}>
-          {"가입 완료"}
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M20 6L9 17L4 12"
-              stroke="white"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={loading}
+        >
+          {loading ? "처리 중..." : "가입 완료"}
+          {!loading && (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M20 6L9 17L4 12"
+                stroke="white"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
         </button>
       </form>
 
