@@ -165,29 +165,6 @@ export default function PortfolioPage() {
             ))}
           </ul>
 
-          <div className={s.aiCard}>
-            <div className={s.aiCardIcon}>
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" />
-              </svg>
-            </div>
-            <div className={s.aiCardTitle}>AI 분석 준비 완료</div>
-            <p className={s.aiCardDesc}>
-              입력하신 데이터를 기반으로 합격 확률을 실시간 분석합니다.
-            </p>
-            <div className={s.aiCardProgress}>
-              <div className={s.aiCardProgressBar} />
-            </div>
-          </div>
         </aside>
 
         {/* Main Content */}
