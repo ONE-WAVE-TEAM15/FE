@@ -281,6 +281,10 @@
   gap: 20px;
 }
 
+.marketFitCard {
+  margin-top: 24px;
+}
+
 .marketCard {
   flex: 1;
   text-align: center;

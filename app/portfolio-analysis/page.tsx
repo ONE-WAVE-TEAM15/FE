@@ -318,8 +318,8 @@ export default function PortfolioAnalysisPage() {
           </div>
         </div>
 
-        {/* ── 3. 채용 시장 적합도 (Market Fit) ── */}
-        <div className={s.card}>
+        {/* ── Market Fit ── */}
+        <div className={`${s.card} ${s.marketFitCard}`}>
           <h2 className={s.sectionTitle}>채용 시장 적합도</h2>
           <div className={s.marketCards}>
             <div className={s.marketCard}>

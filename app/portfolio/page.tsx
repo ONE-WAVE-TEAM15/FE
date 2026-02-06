@@ -154,7 +154,6 @@ export default function PortfolioPage() {
             ))}
           </ul>
 
-          {/* AI Card */}
           <div className={s.aiCard}>
             <div className={s.aiCardIcon}>
               <svg
